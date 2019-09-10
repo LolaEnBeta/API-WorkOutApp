@@ -8,14 +8,13 @@ def create(activity):
     arguments = (
         activity.type,
         activity.reps,
-        activity.id_act,
         activity.totalTime,
         activity.weight
     )
 
     sql = '''
-        INSERT INTO activities (type, reps, id_act, totalTime, weight)
-        VALUES (?, ?, ?, ?, ?)
+        INSERT INTO activities (type, reps, totalTime, weight)
+        VALUES (?, ?, ?, ?)
     '''
 
     if (query.execute(sql, arguments)):
@@ -37,7 +36,7 @@ def get_all():
         activities =[]
 
         for row in rows:
-            activity = Activity(row[0], row[1], row[2], row[3], row[4], row[5])
+            activity = Activity(row[0], row[1], row[2], row[3], row[4])
             activities.append(activity)
 
         query.close()
@@ -47,18 +46,18 @@ def get_all():
     else:
         return "An error has ocurred"
 
-def get_by(id_act):
+def get_by(id):
     conn = sqlite3.connect("sqlite3/database.db")
     query = conn.cursor()
 
-    sql = 'SELECT * FROM activities WHERE id_act = %s' % id_act
+    sql = 'SELECT * FROM activities WHERE id = %s' % id
 
     if (query.execute(sql)):
         row = query.fetchone()
         if not row:
             return None
 
-        activity = Activity(row[0], row[1], row[2], row[3], row[4], row[5])
+        activity = Activity(row[0], row[1], row[2], row[3], row[4])
 
         query.close()
         conn.commit()
@@ -71,7 +70,7 @@ def remove(activity):
     conn = sqlite3.connect("sqlite3/database.db")
     query = conn.cursor()
 
-    sql = 'DELETE FROM activities WHERE id_act = %s' % activity.id_act
+    sql = 'DELETE FROM activities WHERE id = %s' % activity.id
 
     if (query.execute(sql)):
         query.close()
@@ -87,13 +86,13 @@ def edit(activity):
         activity.reps,
         activity.totalTime,
         activity.weight,
-        activity.id_act
+        activity.id
     )
 
     sql = '''
         UPDATE activities SET
         type = ?, reps = ?, totalTime = ?, weight = ?
-        WHERE id_act = ?
+        WHERE id = ?
     '''
 
     if (query.execute(sql, arguments)):

@@ -8,7 +8,6 @@ sql = '''
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         type TEXT NOT NULL,
         reps INTEGER NOT NULL,
-        id_act INTEGER NOT NULL,
         totalTime INTEGER NOT NULL,
         weight INTEGER NOT NULL
     )'''
