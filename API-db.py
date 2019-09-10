@@ -21,6 +21,8 @@ def create_activity():
 
     try:
         reps = int(reps)
+        totalTime = int(totalTime)
+        weight = int(weight)
     except:
         return make_response(jsonify("It is not a number"), 400)
 
