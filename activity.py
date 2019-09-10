@@ -1,5 +1,6 @@
 class Activity(object):
-    def __init__(self, type, reps, id_act, totalTime, weight):
+    def __init__(self, id, type, reps, id_act, totalTime, weight):
+        self.id = id
         self.type = type
         self.reps = reps
         self.id_act = id_act
@@ -8,6 +9,7 @@ class Activity(object):
 
     def to_json(self):
         return {
+            "id": self.id,
             "type": self.type,
             "reps": self.reps,
             "id_act": self.id_act,

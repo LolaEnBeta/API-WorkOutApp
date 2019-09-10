@@ -37,7 +37,7 @@ def get_all():
         activities =[]
 
         for row in rows:
-            activity = Activity(row[1],row[2],row[3],row[4],row[5])
+            activity = Activity(row[0], row[1], row[2], row[3], row[4], row[5])
             activities.append(activity)
 
         query.close()
@@ -58,7 +58,7 @@ def get_by(id_act):
         if not row:
             return None
 
-        activity = Activity(row[1],row[2],row[3],row[4],row[5])
+        activity = Activity(row[0], row[1], row[2], row[3], row[4], row[5])
 
         query.close()
         conn.commit()
