@@ -21,9 +21,6 @@ def create(activity):
         query.close()
         conn.commit()
         conn.close()
-        return "Activity created successfully"
-    else:
-        return "An error has ocurred"
 
 def get_all():
     conn = sqlite3.connect("sqlite3/database.db")

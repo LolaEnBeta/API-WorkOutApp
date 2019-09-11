@@ -1,9 +1,12 @@
 from flask import Flask, request, abort, make_response, jsonify
+from flask_cors import CORS
 import sqlite3
+
 from activity import Activity
 import ActivityRepository
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def index():
@@ -26,19 +29,20 @@ def create_activity():
     except:
         return make_response(jsonify("It is not a number"), 400)
 
-    new_activity = Activity(None, type, reps, totalTime, weight)
-    result = ActivityRepository.create(new_activity)
 
-    return result
+    try:
+        new_activity = Activity(None, type, reps, totalTime, weight)
+        result = ActivityRepository.create(new_activity)
+        return result
+    except:
+        abort(500)
 
 @app.route('/activities', methods=["GET"])
 def get_all():
     activity_list = ActivityRepository.get_all()
     activities = [activity.to_json() for activity in activity_list]
 
-    response = jsonify(activities)
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
+    return jsonify(activities)
 
 @app.route('/activities/<id>', methods=["GET"])
 def get_by(id):
@@ -46,9 +50,7 @@ def get_by(id):
     if not activity:
         abort(404)
 
-    response = jsonify(activity.to_json())
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
+    return jsonify(activity.to_json())
 
 @app.route('/activities/<id>', methods=["DELETE"])
 def remove_by(id):
