@@ -10,7 +10,7 @@ sql = '''
         reps INTEGER NOT NULL,
         totalTime INTEGER NOT NULL,
         weight INTEGER NOT NULL,
-        date TEXT NOT NULL
+        date INTEGER NOT NULL
     )'''
 
 if (query.execute(sql)):
