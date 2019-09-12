@@ -6,11 +6,11 @@ query = conn.cursor()
 sql = '''
     CREATE TABLE IF NOT EXISTS activities (
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+        date INTEGER NOT NULL,
         type TEXT NOT NULL,
         reps INTEGER NOT NULL,
         totalTime INTEGER NOT NULL,
-        weight INTEGER NOT NULL,
-        date INTEGER NOT NULL
+        weight INTEGER NOT NULL
     )'''
 
 if (query.execute(sql)):
