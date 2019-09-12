@@ -9,12 +9,14 @@ def create(activity):
         activity.type,
         activity.reps,
         activity.totalTime,
-        activity.weight
+        activity.weight,
+        activity.date,
+
     )
 
     sql = '''
-        INSERT INTO activities (type, reps, totalTime, weight)
-        VALUES (?, ?, ?, ?)
+        INSERT INTO activities (type, reps, totalTime, weight, date)
+        VALUES (?, ?, ?, ?, ?)
     '''
 
     if (query.execute(sql, arguments)):
@@ -33,7 +35,7 @@ def get_all():
         activities =[]
 
         for row in rows:
-            activity = Activity(row[0], row[1], row[2], row[3], row[4])
+            activity = Activity(row[0], row[1], row[2], row[3], row[4], row[5])
             activities.append(activity)
 
         query.close()
@@ -54,7 +56,7 @@ def get_by(id):
         if not row:
             return None
 
-        activity = Activity(row[0], row[1], row[2], row[3], row[4])
+        activity = Activity(row[0], row[1], row[2], row[3], row[4], row[5])
 
         query.close()
         conn.commit()
