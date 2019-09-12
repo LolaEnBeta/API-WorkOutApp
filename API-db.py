@@ -31,9 +31,9 @@ def create_activity():
     except:
         return make_response(jsonify("It is not a number"), 400)
 
-
     try:
-        new_activity = Activity(None, date, type, reps, totalTime, weight)
+        timestamp = date_string_to_timestamp(date)
+        new_activity = Activity(None, timestamp, type, reps, totalTime, weight)
         ActivityRepository.create(new_activity)
         return "activity created"
     except:
@@ -101,7 +101,7 @@ def not_found(error):
 def internal_server_error(error):
     return make_response("internal server error", 500)
 
-def date_string_to_datetime(date):
+def date_string_to_timestamp(date):
     datetime_object = datetime.strptime(date, '%Y/%m/%d')
     timestamp = int(datetime.timestamp(datetime_object))
 
