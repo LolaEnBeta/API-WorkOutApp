@@ -42,6 +42,8 @@ def create_activity():
 @app.route('/activities', methods=["GET"])
 def get_all():
     activity_list = ActivityRepository.get_all()
+    for activity in activities:
+        activity.date = timestamp_to_date_string(activity.date)
     activities = [activity.to_json() for activity in activity_list]
 
     return jsonify(activities)
@@ -51,6 +53,8 @@ def get_by(id):
     activity = ActivityRepository.get_by(id)
     if not activity:
         abort(404)
+
+    activity.date = timestamp_to_date_string(activity.date)
 
     return jsonify(activity.to_json())
 
