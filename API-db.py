@@ -107,5 +107,15 @@ def date_string_to_datetime(date):
 
     return timestamp
 
+def timestamp_to_date_string(timestamp):
+    datetime_object = datetime.fromtimestamp(timestamp)
+
+    year = datetime_object.strftime("%Y")
+    month = datetime_object.strftime("%m")
+    day = datetime_object.strftime("%d")
+    date = datetime_object.strftime("%Y/%m/%d")
+
+    return date
+
 if __name__ == "__main__":
     app.run(debug=True)
