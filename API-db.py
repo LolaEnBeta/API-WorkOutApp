@@ -1,6 +1,7 @@
 from flask import Flask, request, abort, make_response, jsonify
 from flask_cors import CORS
 import sqlite3
+from datetime import datetime
 
 from activity import Activity
 import ActivityRepository
@@ -99,6 +100,12 @@ def not_found(error):
 @app.errorhandler(500)
 def internal_server_error(error):
     return make_response("internal server error", 500)
+
+def date_string_to_datetime(date):
+    datetime_object = datetime.strptime(date, '%Y/%m/%d')
+    timestamp = int(datetime.timestamp(datetime_object))
+
+    return timestamp
 
 if __name__ == "__main__":
     app.run(debug=True)
