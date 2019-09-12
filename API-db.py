@@ -17,6 +17,7 @@ def create_activity():
     if not "type" in request.json or not "reps" in request.json:
         abort(400)
 
+    date = request.json.get("date")
     type = request.json.get("type")
     reps = request.json.get("reps")
     totalTime = request.json.get("totalTime", 0)
@@ -31,9 +32,9 @@ def create_activity():
 
 
     try:
-        new_activity = Activity(None, type, reps, totalTime, weight)
-        result = ActivityRepository.create(new_activity)
-        return result
+        new_activity = Activity(None, date, type, reps, totalTime, weight)
+        ActivityRepository.create(new_activity)
+        return "activity created"
     except:
         abort(500)
 
