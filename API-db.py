@@ -42,8 +42,9 @@ def create_activity():
 @app.route('/activities', methods=["GET"])
 def get_all():
     activity_list = ActivityRepository.get_all()
-    for activity in activities:
+    for activity in activity_list:
         activity.date = timestamp_to_date_string(activity.date)
+
     activities = [activity.to_json() for activity in activity_list]
 
     return jsonify(activities)
@@ -117,6 +118,7 @@ def timestamp_to_date_string(timestamp):
     year = datetime_object.strftime("%Y")
     month = datetime_object.strftime("%m")
     day = datetime_object.strftime("%d")
+
     date = datetime_object.strftime("%Y/%m/%d")
 
     return date
