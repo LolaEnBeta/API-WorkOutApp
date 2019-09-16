@@ -41,7 +41,9 @@ def create_activity():
 
 @app.route('/activities', methods=["GET"])
 def get_all():
-    activity_list = ActivityRepository.get_all()
+    date = request.args["day"]
+    new_date = str(date_string_to_timestamp(date))
+    activity_list = ActivityRepository.get_all(new_date)
     for activity in activity_list:
         activity.date = timestamp_to_date_string(activity.date)
 
