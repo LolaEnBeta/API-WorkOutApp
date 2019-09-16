@@ -24,11 +24,11 @@ def create(activity):
         conn.commit()
         conn.close()
 
-def get_all():
+def get_all(date):
     conn = sqlite3.connect("sqlite3/database.db")
     query = conn.cursor()
 
-    sql = 'SELECT * FROM activities'
+    sql = 'SELECT * FROM activities WHERE date = %s' % date
 
     if (query.execute(sql)):
         rows = query.fetchall()
