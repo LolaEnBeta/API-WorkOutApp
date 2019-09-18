@@ -24,7 +24,7 @@ def create(activity):
         conn.commit()
         conn.close()
 
-def get_all(date):
+def get_by_date(date):
     conn = sqlite3.connect("sqlite3/database.db")
     query = conn.cursor()
 
