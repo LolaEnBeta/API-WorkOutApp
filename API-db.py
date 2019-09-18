@@ -40,13 +40,21 @@ def create_activity():
         abort(500)
 
 @app.route('/activities', methods=["GET"])
-def get_all():
+def get_all_by_date():
     date = request.args["day"]
     new_date = str(date_string_to_timestamp(date))
     activity_list = ActivityRepository.get_by_date(new_date)
     for activity in activity_list:
         activity.date = timestamp_to_date_string(activity.date)
 
+    activities = [activity.to_json() for activity in activity_list]
+
+    return jsonify(activities)
+
+@app.route('/activities', methods=["GET"])
+def get_all_by_type():
+    type = request.args["type"]
+    activity_list = ActivityRepository.get_by_type(type)
     activities = [activity.to_json() for activity in activity_list]
 
     return jsonify(activities)
