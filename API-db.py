@@ -51,7 +51,7 @@ def get_all_by_date():
 
     return jsonify(activities)
 
-@app.route('/activities', methods=["GET"])
+@app.route('/type', methods=["GET"])
 def get_all_by_type():
     type = request.args["type"]
     activity_list = ActivityRepository.get_by_type(type)
