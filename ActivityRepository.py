@@ -49,7 +49,7 @@ def get_by_type(type):
     conn = sqlite3.connect("sqlite3/database.db")
     query = conn.cursor()
 
-    sql = 'SELECT * FROM activities WHERE type = %s' % type
+    sql = "SELECT * FROM activities WHERE type = '%s'" % type
 
     if (query.execute(sql)):
         rows = query.fetchall()
