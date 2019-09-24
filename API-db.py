@@ -21,8 +21,8 @@ def create_activity():
     date = request.json.get("date")
     type = request.json.get("type")
     reps = request.json.get("reps")
-    totalTime = request.json.get("totalTime", 0)
-    weight = request.json.get("weight", 0)
+    totalTime = request.json.get("totalTime")
+    weight = request.json.get("weight")
 
     try:
         reps = int(reps)
