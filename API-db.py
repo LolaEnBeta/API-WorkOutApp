@@ -63,6 +63,16 @@ def get_all_by_type():
         activities = [activity.to_json() for activity in activity_list]
         return jsonify(activities)
 
+@app.route('/activities/<id>', methods=["GET"])
+def get_by(id):
+    activity = ActivityRepository.get_by(id)
+    if not activity:
+        abort(404)
+
+    activity.date = timestamp_to_date_string(activity.date)
+
+    return jsonify(activity.to_json())
+
 @app.route('/activities/<id>', methods=["DELETE"])
 def remove_by(id):
     activity = ActivityRepository.get_by(id)
