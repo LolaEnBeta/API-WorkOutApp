@@ -73,16 +73,17 @@ def get_all():
     sql = 'SELECT * FROM activities'
 
     if (query.execute(sql)):
-        row = query.fetchone()
-        if not row:
-            return None
+        rows = query.fetchall()
+        activities =[]
 
-        activity = Activity(row[0], row[1], row[2], row[3], row[4], row[5])
+        for row in rows:
+            activity = Activity(row[0], row[1], row[2], row[3], row[4], row[5])
+            activities.append(activity)
 
         query.close()
         conn.commit()
         conn.close()
-        return activity
+        return activities
     else:
         return "An error has ocurred"
 
