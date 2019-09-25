@@ -54,10 +54,14 @@ def get_all_by_date():
 @app.route('/type', methods=["GET"])
 def get_all_by_type():
     type = request.args["type"]
-    activity_list = ActivityRepository.get_by_type(type)
-    activities = [activity.to_json() for activity in activity_list]
-
-    return jsonify(activities)
+    if type == '':
+        activity_list = ActivityRepository.get_all()
+        activities = [activity.to_json() for activity in activity_list]
+        return jsonify(activities)
+    else:
+        activity_list = ActivityRepository.get_by_type(type)
+        activities = [activity.to_json() for activity in activity_list]
+        return jsonify(activities)
 
 @app.route('/activities/<id>', methods=["GET"])
 def get_by(id):
